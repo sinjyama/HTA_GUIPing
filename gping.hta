@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>GUI Ping</title>
+<body>
+<form name="form1">
+	<p>IPアドレスまたはサーバ名&nbsp;<input type="text" name="ipaddr" value="127.0.0.1" /></p>
+	<p>リクエスト・データ送信回数&nbsp;
+		<input type="radio" name="rd" />1
+		<input type="radio" name="rd" checked />2
+		<input type="radio" name="rd" />3
+		&nbsp;&nbsp;
+		送信パケットサイズ&nbsp;
+		<select name="pacsize">
+			<option value="16">16
+			<option value="32">32
+			<option value="64">64
+		</select> bytes
+	</p>
+	<p><input type="button" value="ping 実行" onClick="go_ping()" /></p>
+	<textarea name="kekka" cols="80" rows="30"></textarea>
+	<p><input type="reset" value="入力内容の初期化"></p>
+</form>
+<script language="VBScript">
+	Dim WshShell, oExec
+	Set WshShell = CreateObject("WScript.Shell")
+	
+	Sub go_ping()
+		For i = 0 To document.form1.rd.length - 1
+			if document.form1.rd(i).checked then
+				loops = i + 1
+			end if
+		Next
+		pacsize = document.form1.pacsize.value
+		exCommand = "ping" & " " & document.form1.ipaddr.value
+		exCommand = exCommand & " " & "-n" & " " & loops
+		exCommand = exCommand & " " & "-l" & " " & pacsize
+		Set oExec = WshShell.Exec(exCommand)
+		R = oExec.Stdout.ReadAll
+		document.form1.kekka.value = R
+	End Sub
+</script>
+</body>
+</html>
