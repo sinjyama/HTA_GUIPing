@@ -9,12 +9,13 @@ window.onload = function() {
 		}
 		pacsize = form1.pacsize.value;
 		
-		exCommand = "ping" + " " + form1.ipaddr.value;
-		exCommand = exCommand + " " + "-n" + " " + loops;
-		exCommand = exCommand + " " + "-l" + " " + pacsize;
+		var exCommand = new CCommandLine( "ping" );
+		exCommand.appendArgument( form1.ipaddr.value );
+		exCommand.appendOptWithArg( "n", loops );
+		exCommand.appendOptWithArg( "l", pacsize );
 		
-		var WshShell = new ActiveXObject("WScript.Shell");
-		var oExec = WshShell.Exec(exCommand);
+		var WshShell = new ActiveXObject( "WScript.Shell" );
+		var oExec = WshShell.Exec( exCommand.Str );
 		R = oExec.StdOut.ReadAll();
 		form1.kekka.value = R;
 	}
