@@ -10,6 +10,6 @@
 	}
 	
 	//以下、読み込みファイルの指定
-	require( 'ccommandline.js' );
-	require( 'gping.js' );
+	require( 'js/ccommandline.js' );
+	require( 'js/gping.js' );
 })();
