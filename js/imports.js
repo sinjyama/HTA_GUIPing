@@ -10,7 +10,7 @@
 	}
 	
 	//以下、読み込みファイルの指定
-	require( 'js/dom_util.js' );
+	require( 'js/dom.js' );
 	require( 'js/ccommandline.js' );
 	require( 'js/gping.js' );
 })();

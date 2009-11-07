@@ -16,9 +16,9 @@
 	};
 	function init(){
 		//set event handler
-		addListener(document.getElementById('go_ping'), "click" ,go_ping);
+		dom.addListener(document.getElementById('go_ping'), "click" ,go_ping);
 	}
 	
 	//initialize
-	addListener(window, "load", init);
+	dom.addListener(window, "load", init);
 })();
