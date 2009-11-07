@@ -1,7 +1,7 @@
 //ping実行スクリプト
 
-window.onload = function() {
-	form1.go_ping.onclick = function() {
+(function(){
+	function go_ping(){
 		for (i = 0; i < form1.rd.length; i++) {
 			if (form1.rd(i).checked) {
 				loops = i + 1;
@@ -9,14 +9,14 @@ window.onload = function() {
 		}
 		pacsize = form1.pacsize.value;
 		
-		var exCommand = new CCommandLine( "ping" );
-		exCommand.appendArgument( form1.ipaddr.value );
-		exCommand.appendOptWithArg( "n", loops );
-		exCommand.appendOptWithArg( "l", pacsize );
+		ping = new CCommandLine("ping");
+		ping.addArg(form1.ipaddr.value).addOptWithArg("n", loops).addOptWithArg("l", pacsize);
 		
-		var WshShell = new ActiveXObject( "WScript.Shell" );
-		var oExec = WshShell.Exec( exCommand.Str );
-		R = oExec.StdOut.ReadAll();
-		form1.kekka.value = R;
-	}
-}
+		form1.kekka.value = ping.execute().resultALL();
+	};
+	
+	//set event handler
+	window.onload = function() {
+		form1.go_ping.onclick = go_ping;
+	};
+})();

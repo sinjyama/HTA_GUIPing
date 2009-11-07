@@ -1,21 +1,33 @@
 //コマンドラインClass
 var CCommandLine = function(command){
+	if (typeof CCommandLine.oWSS == 'undefined') CCommandLine.oWSS = new ActiveXObject( "WScript.Shell" );
+	
 	this.Str = command;
 	this.Separater = "-";
+	
+	this.oEXEC = null;
 }
 
 CCommandLine.prototype = {
 	setSeparater : function(separater){
 		this.Separater = separater;
 	},
-	appendArgument : function(argument){
+	addArg : function(argument){
 		this.Str = this.Str + " " + argument;
+		return this;
 	},
-	appendOption : function(option){
+	addOpt : function(option){
 		this.Str = this.Str + " " + this.Separater + option;
+		return this;
 	},
-	appendOptWithArg : function(option, argument){
-		this.appendOption(option);
-		this.appendArgument(argument);
+	addOptWithArg : function(option, argument){
+		return this.addOpt(option).addArg(argument);
+	},
+	execute : function(){
+		this.oEXEC = CCommandLine.oWSS.Exec(this.Str);
+		return this;
+	},
+	resultALL : function(){
+		return this.oEXEC.StdOut.ReadAll();
 	}
 };
