@@ -4,7 +4,7 @@
 	function go_ping(){
 		for (i = 0; i < form1.rd.length; i++) {
 			if (form1.rd(i).checked) {
-				loops = i + 1;
+				loops = form1.rd(i).value;
 			}
 		}
 		pacsize = form1.pacsize.value;
@@ -14,9 +14,11 @@
 		
 		form1.kekka.value = ping.execute().resultALL();
 	};
+	function init(){
+		//set event handler
+		addListener(document.getElementById('go_ping'), "click" ,go_ping);
+	}
 	
-	//set event handler
-	window.onload = function() {
-		form1.go_ping.onclick = go_ping;
-	};
+	//initialize
+	addListener(window, "load", init);
 })();
