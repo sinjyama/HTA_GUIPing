@@ -1,8 +1,7 @@
 //DOMユーティリティ
 var dom = {
-	Id : function(id){
-		return document.getElementById(id);
-	},
+	Id : document.getElementById,
+	Names : document.getElementsByName,
 	Tags : function(){ /* arguments.length > 1 then arg[0] is elm */
 		var elm, tag;
 		
@@ -20,11 +19,8 @@ var dom = {
 		}
 		return elm.getElementsByTagName(tag);
 	},
-	Names : function(name){
-		return document.getElementsByName(name);
-	},
 	//HTML
-	valueCheckedName : function(name){
+	radioValueChecked : function(name){
 		var list = this.Names(name);
 		
 		for (var i = 0; i < list.length; i++){

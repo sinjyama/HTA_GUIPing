@@ -2,13 +2,12 @@
 
 (function(){
 	function go_ping(){
-		var loops = dom.valueCheckedName('rd');
+		var loops = dom.radioValueChecked('rd');
 		var pacsize = dom.valueId('pacsize');
 		
 		var ping = new CCommandLine("ping");
-		ping.addArg(form1.ipaddr.value).addOptWithArg("n", loops).addOptWithArg("l", pacsize);
 		
-		dom.setValueId('kekka', ping.execute().resultALL());
+		dom.setValueId('kekka', ping.addArg(form1.ipaddr.value).addOpt("n").addArg(loops).addOpt("l").addArg(pacsize).execute().resultALL());
 	};
 	function init(){
 		//set event handler
